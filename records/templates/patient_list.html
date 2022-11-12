@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="fs-1 text-center bold">Patient List</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for patient in patients %}
+        <tr>
+            <th scope="row">{{patient.patient_id_number}}</th>
+            <td>{{patient.first_name}}</td>
+            <td>{{patient.last_name}}</td>
+            <td>
+                <a href="{% url 'patient_doctor_update' patient.id %}" class="btn btn-primary mx-2">Update</a>
+                {% comment %} <a href="{% url 'patient_delete' patient.id %}" class="btn btn-danger mx-2">Delete</a> {% endcomment %}
+            </td>
+        {% endfor %}
+      </tr>
+    </tbody>
+  </table>
+  
+  </div>
+</div>
+{% endblock %}

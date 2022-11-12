@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="fs-1 text-center bold">Login</div>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary form-control">Login</button>
+                    </div>
+                </div>
+                {% endbuttons %}
+            </form>
+            <div class="text-center">
+                <a href="{% url 'account_reset_password' %}" class="text-decoration-none fs-5">Forgot Password?</a>
+            </div>
+            <div class="text-center">
+                <p class="fs-5 p-2">Don't have an account? <a href="{% url 'account_signup' %}">Sign up</a></p>
+            </div>
+        </div>
+  </div>
+
+</div>   
+{% endblock %}

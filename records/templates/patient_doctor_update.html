@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="fs-1 text-center bold">Update Patient</div>
+  <div class="row">
+      <div class="col-12">
+          <form method="post">
+              {% csrf_token %}
+              {% bootstrap_form form %}
+              {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                  Submit
+                </button>
+              {% endbuttons %}
+
+          </form>
+      </div>
+  </div>
+
+</div>
+   
+{% endblock %}

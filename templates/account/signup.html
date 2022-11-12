@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static bootstrap5 %}
+
+{% block content %}
+<div class="container-fluid py-3">
+    <div class="row">
+        <div class="col-4">
+            <img src="{% static 'img/health-center-placeholder-image.jpeg' %} " class="img-fluid" alt="placeholder image">
+        </div>
+        <div class="col-8">
+            <div class="fs-1 text-center bold mb-3">Sign Up</div>
+            <div class="mb-3">
+                <form method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form  layout="horizontal" %}
+                    {% buttons %}
+                    <div class="row justify-content-end">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary form-control">Sign Up</button>
+                        </div>
+                    {% endbuttons %}
+                </form>
+            </div>
+            <div class="text-center">
+                <p class="fs-5 p-2">Don't have an account? <a href="{% url 'account_login' %}">Login</a></p>
+            </div>
+        </div> 
+  </div>
+</div>
+{% endblock %}

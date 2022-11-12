@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <div class="fs-1 text-center bold">Welcome Home {{ user.user_name }}</div>
+    <div class="row">
+        <div class="col-12">
+            <p>
+                This is a simple Django application that allows you to create, read, update and delete patient records.
+            </p>
+            <div class="col-12">
+                <a href="{% url 'patient_create' %}" class="btn btn-primary mx-2">Create Patient</a> 
+                <a href="{% url 'patient_list' %}" class="btn btn-primary mx-2">Patient List</a>       
+            </div>
+        </div>
+</div>
+{% endblock %}

@@ -1,0 +1,5 @@
+.field-required > label:after {
+    color: #fa5c7c;
+    content: "*";
+    margin-left: 2px;
+}
