@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block styles %}
+    {% include 'instant_search/external_styles.html' %}
+{% endblock %}
+
+{% block scripts %}
+    {% include 'instant_search/external_scripts.html' %}
+    {% include 'instant_search/element.html' %}
+    {% include 'instant_search/instantsearch.html' %}
+{% endblock %}
+
+{% block content %}
+    {% include 'instant_search/layout.html' %}
+{% endblock %}

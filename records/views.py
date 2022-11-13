@@ -29,10 +29,5 @@ class PatientDoctorUpdateView(generic.UpdateView):
 
 
 
-class PatientListView(generic.ListView):
-    model = models.Patient
-    template_name = 'patient_list.html'
-    context_object_name = 'patients'
-
-    def get_queryset(self):
-        return self.model.objects.all()
+class PatientListView(generic.TemplateView):
+    template_name = 'search.html'

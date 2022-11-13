@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'bootstrap5',
     'simple_history',
+    'algoliasearch_django',
+    # 'eb_algolia',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_settings_export.settings_export',
             ],
         },
     },
@@ -122,3 +125,22 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SETTINGS_EXPORT = [
+    'ALGOLIA_APPLICATION_ID',
+    'ALGOLIA_SUFFIX',
+    'ALGOLIA_PUBLIC_KEY',
+]
+
+ALGOLIA_APPLICATION_ID = env.str('ALGOLIA_APPLICATION_ID', default='')
+ALGOLIA_API_KEY = env.str('ALGOLIA_API_KEY', default='')
+ALGOLIA_SUFFIX = env.str('ALGOLIA_SUFFIX', default='')
+ALGOLIA_PUBLIC_KEY = env('ALGOLIA_PUBLIC_KEY', default='')
+ALGOLIA = {
+    'APPLICATION_ID': ALGOLIA_APPLICATION_ID,
+    'API_KEY': ALGOLIA_API_KEY,
+    'INDEX_SUFFIX': ALGOLIA_SUFFIX,
+    'AUTO_INDEXING': True,
+    'RAISE_EXCEPTIONS': False
+}
+

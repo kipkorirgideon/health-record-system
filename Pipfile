@@ -12,6 +12,9 @@ django-model-utils = "*"
 django-simple-history = "*"
 django-environ = "*"
 psycopg2-binary = "*"
+django-settings-export = "*"
+algoliasearch = "*"
+algoliasearch-django = "*"
 
 [dev-packages]
 

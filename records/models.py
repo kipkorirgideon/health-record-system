@@ -11,6 +11,12 @@ class Patient(model_utils.models.TimeStampedModel):
     date_of_birth = models.DateField('Date of Birth', blank=False, )
     patient_id_number = models.CharField('ID Number', max_length=50, blank=False, unique=True, )
 
+    @property
+    def is_active(self):
+        if self.first_name:
+            return True
+        return False
+
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
