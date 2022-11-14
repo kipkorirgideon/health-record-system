@@ -5,6 +5,7 @@ import model_utils.models
 from django.db import models
 from django.contrib.auth.models import UserManager
 from django.utils.translation import gettext_lazy as _
+from native_shortuuid import NativeShortUUIDField
 
 from simple_history.models import HistoricalRecords
 
@@ -51,6 +52,7 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = USERNAME_FIELD
     history = HistoricalRecords()
+    uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
     first_name = models.CharField('First Name', max_length=50, blank=False, )
     last_name = models.CharField('Last Name', max_length=50, blank=False, )
     username = django.db.models.CharField(max_length=170, blank=True, default='')

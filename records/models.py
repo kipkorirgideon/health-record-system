@@ -1,10 +1,13 @@
+import uuid
 from django.db import models
 import model_utils.models
+from native_shortuuid import NativeShortUUIDField
 
 
 # Create your models here.
 
 class Patient(model_utils.models.TimeStampedModel):
+    uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
     first_name = models.CharField('First Name', max_length=50, blank=False, )
     last_name = models.CharField('Last Name', max_length=50, blank=False, )
     middle_name = models.CharField('Middle Name', max_length=50, blank=True, default='')
@@ -27,6 +30,7 @@ class Patient(model_utils.models.TimeStampedModel):
 
 
 class PatientRecord(model_utils.models.TimeStampedModel):
+    uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
     patient = models.OneToOneField(Patient, on_delete=models.CASCADE, related_name='record')
     signs_and_symptoms = models.TextField('Signs and Symptoms', blank=True, default='')
     test = models.TextField('Diagnosis', blank=True, default='')

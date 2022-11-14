@@ -1,8 +1,7 @@
- <script type="text/html" id="patients">
+{% verbatim %}
+<script type="text/html" id="patients">
     <div class="hit">
-      <p class="hit-name">
-        {{#helpers.highlight}}{ "attribute": "firstname" }{{/helpers.highlight}}
-        {{#helpers.highlight}}{ "attribute": "lastname" }{{/helpers.highlight}}
-      </p>
+      <p class="hit-name">{{first_name}} {{last_name}}</p>
     </div>
  </script>
+{% endverbatim %}

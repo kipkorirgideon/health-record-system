@@ -75,6 +75,7 @@ ACCOUNT_SIGNUP_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_FORMS = {
     'login': 'accounts.forms.CustomLoginForm',
     'signup': 'accounts.forms.CustomSignupForm',
@@ -143,4 +144,3 @@ ALGOLIA = {
     'AUTO_INDEXING': True,
     'RAISE_EXCEPTIONS': False
 }
-
