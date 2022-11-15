@@ -1,9 +1,10 @@
 import django.forms
 
 from records import models
+from forms import FromMixin
 
 
-class PatientCreateForm(django.forms.ModelForm):
+class PatientCreateForm(FromMixin, django.forms.ModelForm):
     class Meta:
         model = models.Patient
         fields = (
@@ -14,11 +15,19 @@ class PatientCreateForm(django.forms.ModelForm):
             'patient_id_number'
         )
 
+    required_fields = (
+        'first_name',
+        'last_name',
+        'date_of_birth',
+        'patient_id_number'
+    )
 
-class PatientDoctorUpdateForm(django.forms.ModelForm):
+
+class PatientDoctorUpdateForm(FromMixin, django.forms.ModelForm):
     class Meta:
         model = models.PatientRecord
         fields = (
             'signs_and_symptoms',
             'test',
         )
+

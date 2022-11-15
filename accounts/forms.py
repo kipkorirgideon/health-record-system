@@ -14,7 +14,6 @@ class CustomLoginForm(LoginForm):
 class CustomSignupForm(SignupForm):
     first_name = django.forms.CharField(max_length=30, label='First Name', required=True)
     last_name = django.forms.CharField(max_length=30, label='Last Name', required=True)
-    id_number = django.forms.CharField(max_length=30, label='ID Number', required=True)
     user_type = django.forms.ChoiceField(choices=BLANK_CHOICE + User.USER_TYPE_CHOICES, label='User Type', required=True)
 
     def __init__(self, *args, **kwargs):
@@ -30,7 +29,6 @@ class CustomSignupForm(SignupForm):
         'first_name',
         'last_name',
         'email',
-        'id_number',
         'user_type',
         'password1',
         'password2',

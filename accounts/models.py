@@ -48,7 +48,7 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
         (LAB_TECHNICIAN, 'Lab Technician'),
         (PHARMACIST, 'Pharmacist'),
     )
-    REQUIRED_FIELDS = ('first_name', 'last_name', 'user_type')
+    REQUIRED_FIELDS = ('id_number',)
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = USERNAME_FIELD
     history = HistoricalRecords()
@@ -60,7 +60,6 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     is_active = django.db.models.BooleanField(_('active'), default=True)
     is_staff = django.db.models.BooleanField(_('admin'), default=False)
     user_type = models.CharField('User Type', max_length=1, choices=USER_TYPE_CHOICES, default=USER_DOCTOR, )
-    id_number = models.CharField('ID Number', max_length=50, blank=False, unique=True, )
 
     objects = MainUserManager()
 
@@ -78,4 +77,3 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
-        ordering = ['first_name', 'last_name']

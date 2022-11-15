@@ -1,7 +1,24 @@
+<style>
+    #hits ol > li{
+        margin-top: 0.5rem;
+    }
+</style>
 {% verbatim %}
 <script type="text/html" id="patients" class="">
-    <div class="mb-2">
-      <p class="hit-name">{{first_name}} {{last_name}}</p>
+    <div class="row justify-content-end">
+        <div class="col-3">
+            <div class="fs-6">{{patient_id_number}}</div>
+        </div>
+        <div class="col-3">
+            <div class="fs-6">{{first_name}}</div>
+        </div>
+        <div class="col-3">
+            <div class="fs-6">{{last_name}}</div>
+        </div>
+        <div class="col-3">
+            <div class="fs-6">{{date_of_birth}}</div>
+        </div>
+
     </div>
  </script>
 {% endverbatim %}

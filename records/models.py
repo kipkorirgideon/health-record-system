@@ -7,13 +7,32 @@ from native_shortuuid import NativeShortUUIDField
 # Create your models here.
 
 class Patient(model_utils.models.TimeStampedModel):
+
+    YEARS_CATEGORY = (
+        ('10-15', '10-15'),
+        ('15-20', '15-20'),
+        ('20-25', '20-25'),
+        ('25-30', '25-30'),
+        ('30-35', '30-35'),
+        ('35-40', '35-40'),
+        ('40-45', '40-45'),
+        ('45+', '45+'),
+    )
+
+
     uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
     first_name = models.CharField('First Name', max_length=50, blank=False, )
     last_name = models.CharField('Last Name', max_length=50, blank=False, )
     middle_name = models.CharField('Middle Name', max_length=50, blank=True, default='')
     date_of_birth = models.DateField('Date of Birth', blank=False, )
-    patient_id_number = models.CharField('ID Number', max_length=50, blank=False, unique=True, )
+    patient_id_number = models.CharField('ID Number', max_length=50, blank=False, null=False, unique=True, )
 
+    class Meta:
+        verbose_name = 'Patient'
+        verbose_name_plural = 'Patients'
+        ordering = ['first_name', 'last_name']
+
+    
     @property
     def is_active(self):
         if self.first_name:
@@ -23,11 +42,29 @@ class Patient(model_utils.models.TimeStampedModel):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
-    class Meta:
-        verbose_name = 'Patient'
-        verbose_name_plural = 'Patients'
-        ordering = ['first_name', 'last_name']
-
+    # number of years since birth
+    def age(self):
+        import datetime
+        today = datetime.date.today()
+        AGE = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        if AGE < 10:
+            return '10 and below'
+        elif AGE > 10 and AGE < 15:
+            return '10-15'
+        elif AGE > 15 and AGE < 20:
+            return '15-20'
+        elif AGE > 20 and AGE < 25:
+            return '20-25'
+        elif AGE > 25 and AGE < 30:
+            return '25-30'
+        elif AGE > 30 and AGE < 35:
+            return '30-35'
+        elif AGE > 35 and AGE < 40:
+            return '35-40'
+        elif AGE > 40 and AGE < 45:
+            return '40-45'
+        elif AGE > 45:
+            return '45 and above'
 
 class PatientRecord(model_utils.models.TimeStampedModel):
     uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)

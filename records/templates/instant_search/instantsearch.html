@@ -30,6 +30,23 @@
       },
     }),
   ])
+
+  // refinement list
+  search.addWidgets([
+  instantsearch.widgets.refinementList({
+    container: '#age-refinement-list',
+    attribute: 'age',
+  }),
+  ]);
+
+
+  search.addWidgets([
+    instantsearch.widgets.pagination({
+      container: '#pagination',
+    }),
+  ])
+
+
   
   search.start()
   
