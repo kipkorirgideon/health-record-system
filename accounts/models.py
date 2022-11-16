@@ -48,7 +48,7 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
         (LAB_TECHNICIAN, 'Lab Technician'),
         (PHARMACIST, 'Pharmacist'),
     )
-    REQUIRED_FIELDS = ('id_number',)
+    REQUIRED_FIELDS = ()
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = USERNAME_FIELD
     history = HistoricalRecords()
