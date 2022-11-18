@@ -8,5 +8,6 @@ urlpatterns = [
     path('', login_required(views.HomePageView.as_view(), login_url='/accounts/login/'), name='home'),
     path('records/', include('records.urls')),
     path('accounts/', include('allauth.urls')),
+    path('grappelli/', include('grappelli.urls')),
     path('admin/', admin.site.urls),
 ]

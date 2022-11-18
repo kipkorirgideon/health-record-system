@@ -19,6 +19,7 @@ ALLOWED_HOSTS = [
 ]
 
 INSTALLED_APPS = [
+    'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -32,7 +33,6 @@ INSTALLED_APPS = [
     'bootstrap5',
     'simple_history',
     'algoliasearch_django',
-    # 'eb_algolia',
 ]
 
 MIDDLEWARE = [
@@ -47,7 +47,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'urls'
-
 
 TEMPLATES = [
     {
@@ -87,7 +86,6 @@ BOOTSTRAP5 = {
     'required_css_class': 'field-required',
 }
 
-
 DATABASES = {
     'default': env.db(),
 }
@@ -115,11 +113,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'django_static')
-
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'statics'),

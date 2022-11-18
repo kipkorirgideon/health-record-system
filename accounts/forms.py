@@ -4,6 +4,8 @@ import django.forms
 from accounts.models import User
 
 BLANK_CHOICE = (('', '---'),)
+
+
 class CustomLoginForm(LoginForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -14,7 +16,8 @@ class CustomLoginForm(LoginForm):
 class CustomSignupForm(SignupForm):
     first_name = django.forms.CharField(max_length=30, label='First Name', required=True)
     last_name = django.forms.CharField(max_length=30, label='Last Name', required=True)
-    user_type = django.forms.ChoiceField(choices=BLANK_CHOICE + User.USER_TYPE_CHOICES, label='User Type', required=True)
+    user_type = django.forms.ChoiceField(choices=BLANK_CHOICE + User.USER_TYPE_CHOICES, label='User Type',
+                                         required=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -32,4 +35,4 @@ class CustomSignupForm(SignupForm):
         'user_type',
         'password1',
         'password2',
-        )
+    )

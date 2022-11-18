@@ -17,6 +17,7 @@ algoliasearch = "*"
 algoliasearch-django = "*"
 django-nativeshortuuidfield = "*"
 shortuuid = "*"
+django-grappelli = "*"
 
 [dev-packages]
 

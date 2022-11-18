@@ -1,4 +1,5 @@
 <script>
+   const user_type = "{{ user_type }}";
    const searchClient = algoliasearch('{{ settings.ALGOLIA_APPLICATION_ID }}', '{{ settings.ALGOLIA_PUBLIC_KEY }}');
         const search = instantsearch({
         indexName: 'Patient_{{ settings.ALGOLIA_SUFFIX }}',
@@ -28,6 +29,15 @@
         item: hitTemplate,
         empty: "No matching patients found"
       },
+      transformItems(items) {
+        return items.map(item => ({
+            ...item,
+            is_doctor: user_type == "d",
+            is_cashier: user_type == "c",
+            is_lab_technician: user_type == "l",
+            is_pharmacist: user_type == "p",
+        }));
+    },
     }),
   ])
 

@@ -32,6 +32,7 @@ class MainUserManager(UserManager):
         )
         user.is_admin = True
         user.is_staff = True
+        user.is_superuser = True
         user.save(using=self._db)
         return user
 
@@ -59,7 +60,7 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     email = models.EmailField('Email', max_length=100, blank=False, unique=True, )
     is_active = django.db.models.BooleanField(_('active'), default=True)
     is_staff = django.db.models.BooleanField(_('admin'), default=False)
-    user_type = models.CharField('User Type', max_length=1, choices=USER_TYPE_CHOICES, default=USER_DOCTOR, )
+    user_type = models.CharField('User Type', max_length=1, choices=USER_TYPE_CHOICES, default='', )
 
     objects = MainUserManager()
 

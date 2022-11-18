@@ -31,3 +31,10 @@ class PatientDoctorUpdateForm(FromMixin, django.forms.ModelForm):
             'test',
         )
 
+
+class PatientLabTestUpdateForm(FromMixin, django.forms.ModelForm):
+    class Meta:
+        model = models.PatientRecord
+        fields = (
+            'test_result',
+        )

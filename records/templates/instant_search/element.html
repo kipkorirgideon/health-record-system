@@ -17,7 +17,12 @@
         </div>
         <div class="col-3">
             <div class="fs-6">
-                <a href="/records/doctor_update/{{uuid}}" class="btn btn-primary mx-2">Update</a>
+                {{#is_doctor}}
+                    <a href="/records/doctor-consultation/{{uuid}}" class="btn btn-primary mx-2">Update</a>
+                {{/is_doctor}}
+                {{#is_lab_technician}}
+                    <a href="/records/lab-test/{{uuid}}" class="btn btn-secondary mx-2">Update</a>
+                {{/is_lab_technician}}
             </div>
         </div>
 
