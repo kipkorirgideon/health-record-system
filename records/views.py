@@ -19,14 +19,13 @@ class PatientDoctorUpdateView(generic.UpdateView):
     form_class = PatientDoctorUpdateForm
     template_name = 'patient_doctor_update.html'
     success_url = reverse_lazy('home')
-    pk_url_kwarg = 'patient_id'
+    pk_url_kwarg = 'patient_uuid'
 
     def get_object(self, queryset=None):
-        patient_id = self.kwargs.get('patient_id')
-        patient = models.Patient.objects.get(id=patient_id)
+        patient_uuid = self.kwargs.get('patient_uuid')
+        patient = models.Patient.objects.get(uuid=patient_uuid)
         patient_record, created = self.model.objects.get_or_create(patient=patient)
         return patient_record
-
 
 
 class PatientListView(generic.TemplateView):
