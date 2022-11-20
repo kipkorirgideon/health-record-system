@@ -7,28 +7,28 @@
     <ul class="nav nav-pills flex-column mb-auto">
       <li>
         <a href="{% url 'dashboard' %}" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+          <i class="fa-solid fa-house-user text-light mx-1"></i>
           Dashboard
         </a>
       </li>
       <li>
         <a href="{% url 'patient_list' %}" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+          <i class="fa-solid fa-users text-light mx-1"></i>
             Patients
         </a>
       </li>
       <li>
         <a href="{% url 'patient_register' %}" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+          <i class="fa-solid fa-users text-light mx-1"></i>
           Records
         </a>
       </li>
     </ul>
     <hr>
     {% if user.is_authenticated %}
-        <div class="">
+        <div class="m-2">
         <a href="{% url 'account_logout' %}" class="d-flex align-items-center text-white text-decoration-none">
-            <strong>Logout</strong>
+            <strong><i class="fa-solid fa-right-from-bracket mx-1"></i>Logout</strong>
         </a>
         </div>
     {% endif %}
