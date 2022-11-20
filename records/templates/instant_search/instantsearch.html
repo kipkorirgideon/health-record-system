@@ -44,8 +44,16 @@
   // refinement list
   search.addWidgets([
   instantsearch.widgets.refinementList({
-    container: '#age-refinement-list',
+    container: '#age',
     attribute: 'age',
+  }),
+  ]);
+
+
+  search.addWidgets([
+  instantsearch.widgets.refinementList({
+    container: '#ward',
+    attribute: 'ward',
   }),
   ]);
 

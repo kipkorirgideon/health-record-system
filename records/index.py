@@ -8,8 +8,8 @@ from .models import Patient
 class PatientIndex(AlgoliaIndex):
     should_index = 'is_active'
     custom_objectID = 'uuid'
-    fields = ('uuid', 'id', 'patient_id_number', 'first_name', 'last_name','date_of_birth', 'patient_id_number', 'age',)
+    fields = ('uuid', 'id', 'patient_id_number', 'first_name', 'last_name','date_of_birth', 'patient_id_number', 'age','ward')
     settings = {
-        'searchableAttributes': [],
-        'attributesForFaceting': ['first_name', 'last_name', 'age', ],
+        'searchableAttributes': ['searchable(patient_id_number)', 'searchable(ward)'],
+        'attributesForFaceting': ['first_name', 'last_name', 'ward'],
     }

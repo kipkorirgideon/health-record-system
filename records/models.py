@@ -19,6 +19,23 @@ class Patient(model_utils.models.TimeStampedModel):
         ('45+', '45+'),
     )
 
+    KAKUMA_WARD = 'Kakuma Ward'
+    LAPUR_WARD = 'Lapur Ward'
+    LETE_WARD = 'Lete Ward'
+    SONGOT_WARD = 'Songot Ward'
+    KALOBEYEI_WARD = 'Kalobeyei Ward'
+    LOKICHOGIO = 'Lokichogio'
+    NANAAM_WARD = 'Nanaam Ward'
+
+    WARD_CHOICES = (
+        (KAKUMA_WARD, 'Kakuma Ward'),
+        (LAPUR_WARD, 'Lapur Ward'),
+        (LETE_WARD, 'Lete Ward'),
+        (SONGOT_WARD, 'Songot Ward'),
+        (KALOBEYEI_WARD, 'Kalobeyei Ward'),
+        (LOKICHOGIO, 'Lokichogio'),
+        (NANAAM_WARD, 'Nanaam Ward'),
+    )
 
     uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
     first_name = models.CharField('First Name', max_length=50, blank=False, )
@@ -26,6 +43,7 @@ class Patient(model_utils.models.TimeStampedModel):
     middle_name = models.CharField('Middle Name', max_length=50, blank=True, default='')
     date_of_birth = models.DateField('Date of Birth', blank=False, )
     patient_id_number = models.CharField('ID Number', max_length=50, blank=False, null=False, unique=True, )
+    ward = models.CharField('Ward', max_length=50, choices=WARD_CHOICES, blank=False, default='')
 
     class Meta:
         verbose_name = 'Patient'

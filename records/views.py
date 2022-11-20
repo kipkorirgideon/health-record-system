@@ -25,14 +25,14 @@ class PatientCreateView(mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Patient
     form_class = forms.PatientCreateForm
     template_name = 'patient_create.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('patient_register')
 
 
 class PatientRecordUpdateView(generic.UpdateView):
     model = models.PatientRecord
     form_class = None
     template_name = 'patient_records_update.html'
-    success_url = reverse_lazy('home')
+    success_url = None
     pk_url_kwarg = 'patient_uuid'
 
     def get_object(self, queryset=None):
@@ -44,10 +44,12 @@ class PatientRecordUpdateView(generic.UpdateView):
 
 class PatientDoctorUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
     form_class = forms.PatientDoctorUpdateForm
+    success_url = reverse_lazy('patient_list')
 
 
 class PatientLabTestUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
     form_class = forms.PatientLabTestUpdateForm
+    success_url = reverse_lazy('patient_list')
 
 
 class PatientListView(mixins.LoginRequiredMixin, generic.TemplateView):

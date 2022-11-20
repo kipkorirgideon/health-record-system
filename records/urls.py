@@ -1,7 +1,8 @@
 from django.urls import path, include
 from . import views
+
 urlpatterns = [
-    path('/', views.PatientRegisterView.as_view(), name='patient_register'),
+    path('', views.PatientRegisterView.as_view(), name='patient_register'),
     path('add/', views.PatientCreateView.as_view(), name='patient_create'),
     path('doctor-consultation/<shortuuid:patient_uuid>/', views.PatientDoctorUpdateView.as_view(),
          name='patient_consultation_update'),
