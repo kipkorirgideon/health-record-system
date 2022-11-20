@@ -1,13 +1,27 @@
 from django.urls import reverse_lazy
 from django.views import generic
 
-from . import forms
+from django_tables2 import SingleTableView, LazyPaginator
+
+from . import forms, tables
 from . import models
+import mixins
 
 
 # Create your views here.
 
-class PatientCreateView(generic.CreateView):
+class PatientRegisterView(mixins.LoginRequiredMixin, SingleTableView):
+    model = models.Patient
+    table_class = tables.PatientTable
+    template_name = 'cashier_patient_create.html'
+
+    table_pagination = {
+        'per_page': 10
+    }
+    paginator_class = LazyPaginator
+
+
+class PatientCreateView(mixins.LoginRequiredMixin, generic.CreateView):
     model = models.Patient
     form_class = forms.PatientCreateForm
     template_name = 'patient_create.html'
@@ -28,15 +42,15 @@ class PatientRecordUpdateView(generic.UpdateView):
         return patient_record
 
 
-class PatientDoctorUpdateView(PatientRecordUpdateView):
+class PatientDoctorUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
     form_class = forms.PatientDoctorUpdateForm
 
 
-class PatientLabTestUpdateView(PatientRecordUpdateView):
+class PatientLabTestUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
     form_class = forms.PatientLabTestUpdateForm
 
 
-class PatientListView(generic.TemplateView):
+class PatientListView(mixins.LoginRequiredMixin, generic.TemplateView):
     template_name = 'search.html'
 
     def get_context_data(self, **kwargs):

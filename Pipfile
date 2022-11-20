@@ -18,6 +18,7 @@ algoliasearch-django = "*"
 django-nativeshortuuidfield = "*"
 shortuuid = "*"
 django-grappelli = "*"
+django-tables2 = "*"
 
 [dev-packages]
 

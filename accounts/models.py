@@ -39,15 +39,15 @@ class MainUserManager(UserManager):
 
 class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.TimeStampedModel,
            django.contrib.auth.models.PermissionsMixin):
-    USER_DOCTOR = 'd'
-    CASHIER = 'c'
-    LAB_TECHNICIAN = 'l'
-    PHARMACIST = 'p'
+    USER_TYPE_DOCTOR = 'd'
+    USER_TYPE_CASHIER = 'c'
+    USER_TYPE_LAB_TECHNICIAN = 'l'
+    USER_TYPE_PHARMACIST = 'p'
     USER_TYPE_CHOICES = (
-        (USER_DOCTOR, 'Doctor'),
-        (CASHIER, 'Cashier'),
-        (LAB_TECHNICIAN, 'Lab Technician'),
-        (PHARMACIST, 'Pharmacist'),
+        (USER_TYPE_DOCTOR, _('Doctor')),
+        (USER_TYPE_CASHIER, _('Cashier')),
+        (USER_TYPE_LAB_TECHNICIAN, _('Lab Technician')),
+        (USER_TYPE_PHARMACIST, _('Pharmacist')),
     )
     REQUIRED_FIELDS = ()
     USERNAME_FIELD = 'email'
@@ -60,7 +60,7 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     email = models.EmailField('Email', max_length=100, blank=False, unique=True, )
     is_active = django.db.models.BooleanField(_('active'), default=True)
     is_staff = django.db.models.BooleanField(_('admin'), default=False)
-    user_type = models.CharField('User Type', max_length=1, choices=USER_TYPE_CHOICES, default='', )
+    user_type = models.CharField('User Type', max_length=1, choices=USER_TYPE_CHOICES, blank=False, default='')
 
     objects = MainUserManager()
 

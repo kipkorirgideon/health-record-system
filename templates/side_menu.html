@@ -1,0 +1,41 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height:100vh">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+      <span class="fs-5"><small>Hey {{ user.username }}!</small></span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li>
+        <a href="{% url 'dashboard' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'patient_list' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+            Patients
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'patient_register' %}" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+          Records
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+          Customers
+        </a>
+      </li>
+    </ul>
+    <hr>
+    {% if user.is_authenticated %}
+        <div class="">
+        <a href="{% url 'account_logout' %}" class="d-flex align-items-center text-white text-decoration-none">
+            <strong>Logout</strong>
+        </a>
+        </div>
+    {% endif %}
+  </div>

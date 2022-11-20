@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.decorators import login_required
 
+import accounts.views
 import views
 
 urlpatterns = [
-    path('', login_required(views.HomePageView.as_view(), login_url='/accounts/login/'), name='home'),
+    path('', views.HomeView.as_view(), name='home'),
+    path('dashboard/', accounts.views.DashboardView.as_view(), name='dashboard'),
     path('records/', include('records.urls')),
     path('accounts/', include('allauth.urls')),
     path('grappelli/', include('grappelli.urls')),
