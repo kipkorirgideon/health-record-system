@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -9,8 +10,7 @@ import mixins
 
 
 # Create your views here.
-
-class PatientRegisterView(mixins.LoginRequiredMixin, SingleTableView):
+class PatientRecordView(SingleTableView):
     model = models.Patient
     table_class = tables.PatientTable
     template_name = 'cashier_patient_create.html'
@@ -19,6 +19,10 @@ class PatientRegisterView(mixins.LoginRequiredMixin, SingleTableView):
         'per_page': 10
     }
     paginator_class = LazyPaginator
+
+
+class PatientRegisterView(mixins.LoginRequiredMixin, PatientRecordView):
+    pass
 
 
 class PatientCreateView(mixins.LoginRequiredMixin, generic.CreateView):
@@ -59,3 +63,24 @@ class PatientListView(mixins.LoginRequiredMixin, generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context['user_type'] = self.request.user.user_type
         return context
+
+
+class PendingLabTestListView(mixins.LoginRequiredMixin, PatientRecordView):
+    template_name = 'patient_list.html'
+    context_object_name = 'patients'
+
+    def get_queryset(self):
+        return self.model.objects.filter(
+            Q(record__signs_and_symptoms__exact='') &
+            Q(record__test_result__exact=''))
+
+
+class PendingTreatmentListView(mixins.LoginRequiredMixin, PatientRecordView):
+    template_name = 'patient_list.html'
+    context_object_name = 'patients'
+
+    def get_queryset(self):
+        return self.model.objects.filter(
+            Q(record__signs_and_symptoms__exact='') &
+            Q(record__treatment__exact=''))
+

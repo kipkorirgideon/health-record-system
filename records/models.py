@@ -7,7 +7,6 @@ from native_shortuuid import NativeShortUUIDField
 # Create your models here.
 
 class Patient(model_utils.models.TimeStampedModel):
-
     YEARS_CATEGORY = (
         ('10-15', '10-15'),
         ('15-20', '15-20'),
@@ -50,7 +49,6 @@ class Patient(model_utils.models.TimeStampedModel):
         verbose_name_plural = 'Patients'
         ordering = ['first_name', 'last_name']
 
-    
     @property
     def is_active(self):
         if self.first_name:
@@ -64,7 +62,8 @@ class Patient(model_utils.models.TimeStampedModel):
     def age(self):
         import datetime
         today = datetime.date.today()
-        AGE = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        AGE = today.year - self.date_of_birth.year - (
+                    (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
         if AGE < 10:
             return '10 and below'
         elif AGE > 10 and AGE < 15:
@@ -83,6 +82,7 @@ class Patient(model_utils.models.TimeStampedModel):
             return '40-45'
         elif AGE > 45:
             return '45 and above'
+
 
 class PatientRecord(model_utils.models.TimeStampedModel):
     uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
