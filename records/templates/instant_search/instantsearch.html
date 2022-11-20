@@ -41,19 +41,22 @@
     }),
   ])
 
-  // refinement list
+
   search.addWidgets([
   instantsearch.widgets.refinementList({
     container: '#age',
     attribute: 'age',
   }),
   ]);
-
+ 
 
   search.addWidgets([
   instantsearch.widgets.refinementList({
     container: '#ward',
     attribute: 'ward',
+    searchable: true,
+    showMore: true,
+    limit: 5,
   }),
   ]);
 
