@@ -23,6 +23,14 @@
           Records
         </a>
       </li>
+        {% if user.is_staff %}
+          <li>
+            <a href="{% url 'admin:index' %}" class="nav-link text-white">
+              <i class="fa-solid fa-lock text-light mx-1"></i>
+              Admin
+            </a>
+          </li>
+        {% endif %}
     </ul>
     <hr>
     {% if user.is_authenticated %}
