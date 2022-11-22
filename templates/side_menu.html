@@ -11,7 +11,7 @@
           Dashboard
         </a>
       </li>
-      {% if not user.is_cashier or not user.is_pharmacist %}
+      {% if not user.is_cashier  %}
           <li>
             <a href="{% url 'patient_list' %}" class="nav-link text-white">
               <i class="fa-solid fa-users text-light mx-1"></i>

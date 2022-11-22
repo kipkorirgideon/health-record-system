@@ -47,7 +47,6 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
         (USER_TYPE_DOCTOR, _('Doctor')),
         (USER_TYPE_CASHIER, _('Cashier')),
         (USER_TYPE_LAB_TECHNICIAN, _('Lab Technician')),
-        (USER_TYPE_PHARMACIST, _('Pharmacist')),
     )
     REQUIRED_FIELDS = ()
     USERNAME_FIELD = 'email'
@@ -91,7 +90,3 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     @property
     def is_lab_technician(self):
         return self.user_type == self.USER_TYPE_LAB_TECHNICIAN
-
-    @property
-    def is_pharmacist(self):
-        return self.user_type == self.USER_TYPE_PHARMACIST
