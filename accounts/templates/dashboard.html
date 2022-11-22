@@ -75,7 +75,7 @@
                                 {% if patients_pending_lab_tests|length %}
                                     {% for patient in patients_pending_lab_tests %}
                                         <div class="col-12">
-                                            <a href="{% url 'patient_test_result_update' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
+                                            <a href="{% url 'patient_detail' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
                                                 <div class="card-text text-center fs-6 text-secondary">
                                                     {{patient.first_name}}
                                                     {{patient.last_name}}

@@ -36,14 +36,14 @@ class PatientRecordPendingConsultationTable(tables.Table):
 
 class PatientRecordPendingLabTestTable(tables.Table):
     update_btn = tables.Column(
-        empty_values=('', 'Update',), verbose_name='Add Lab Test', exclude_from_export=True,
-        linkify=("patient_test_result_update",  [tables.A("uuid")]), orderable=False, attrs={
+        empty_values=('', 'Update',), verbose_name='', exclude_from_export=True,
+        linkify=("patient_detail",  [tables.A("uuid")]), orderable=False, attrs={
             'a': {'class': 'btn btn-primary btn-sm'},
         }
     )
 
     def render_update_btn(self, record):
-        return 'Add Lab Test'
+        return 'View Patient'
 
     class Meta:
         model = models.PatientRecord
@@ -58,14 +58,14 @@ class PatientRecordPendingLabTestTable(tables.Table):
 
 class PatientRecordPendingTreatmentTable(tables.Table):
     update_btn = tables.Column(
-        empty_values=('', 'Update',), verbose_name='Add Treatment', exclude_from_export=True,
-        linkify=("add_patient_treatment",  [tables.A("uuid")]), orderable=False, attrs={
+        empty_values=('', 'Update',), verbose_name='', exclude_from_export=True,
+        linkify=("patient_detail",  [tables.A("uuid")]), orderable=False, attrs={
             'a': {'class': 'btn btn-primary btn-sm'},
         }
     )
 
     def render_update_btn(self, record):
-        return 'Add Treatment'
+        return 'View Patient'
 
     class Meta:
         model = models.PatientRecord

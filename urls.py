@@ -5,7 +5,7 @@ import accounts.views
 import views
 
 urlpatterns = [
-    path('', views.HomeView.as_view(), name='home'),
+    path('', accounts.views.UserTypeRedirectView.as_view(), name='home'),
     path('dashboard/', accounts.views.DashboardView.as_view(), name='dashboard'),
     path('records/', include('records.urls')),
     path('accounts/', include('allauth.urls')),

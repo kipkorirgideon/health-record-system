@@ -63,7 +63,7 @@ class FromMixin:
             if isinstance(self.fields[field], django.forms.fields.DateField):
                 this_year = datetime.date.today().year
                 if field == 'date_of_birth':
-                    years = range(this_year - 99, this_year - 13)
+                    years = range(this_year - 99, this_year + 1)
                     self.fields[field].widget = SelectDateCustomWidget(years=years)
 
 
