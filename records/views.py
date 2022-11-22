@@ -41,19 +41,17 @@ class PatientRecordUpdateView(generic.UpdateView):
 
     def get_object(self, queryset=None):
         patient_uuid = self.kwargs.get('patient_uuid')
-        patient = models.Patient.objects.get(uuid=patient_uuid)
-        patient_record, created = self.model.objects.get_or_create(patient=patient)
-        return patient_record
+        return self.model.objects.get(uuid=patient_uuid)
 
 
 class PatientDoctorUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
     form_class = forms.PatientDoctorUpdateForm
-    success_url = reverse_lazy('patient_list')
+    success_url = reverse_lazy('dashboard')
 
 
 class PatientLabTestUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
     form_class = forms.PatientLabTestUpdateForm
-    success_url = reverse_lazy('patient_list')
+    success_url = reverse_lazy('dashboard')
 
 
 class PatientListView(mixins.LoginRequiredMixin, generic.TemplateView):
@@ -65,14 +63,22 @@ class PatientListView(mixins.LoginRequiredMixin, generic.TemplateView):
         return context
 
 
-class PendingLabTestListView(mixins.LoginRequiredMixin, PatientRecordView):
+class PendingConsultationListView(mixins.LoginRequiredMixin, PatientRecordView):
     template_name = 'patient_list.html'
     context_object_name = 'patients'
 
     def get_queryset(self):
         return self.model.objects.filter(
             Q(record__signs_and_symptoms__exact='') &
-            Q(record__test_result__exact=''))
+            Q(record__test__exact=''))
+
+
+class PendingLabTestListView(mixins.LoginRequiredMixin, PatientRecordView):
+    template_name = 'patient_list.html'
+    context_object_name = 'patients'
+
+    def get_queryset(self):
+        return self.model.objects.filter(record__test_result__exact='')
 
 
 class PendingTreatmentListView(mixins.LoginRequiredMixin, PatientRecordView):
@@ -80,7 +86,28 @@ class PendingTreatmentListView(mixins.LoginRequiredMixin, PatientRecordView):
     context_object_name = 'patients'
 
     def get_queryset(self):
-        return self.model.objects.filter(
-            Q(record__signs_and_symptoms__exact='') &
-            Q(record__treatment__exact=''))
+        return self.model.objects.filter(record__treatment__exact='')
 
+
+class PatientDetailView(mixins.LoginRequiredMixin, generic.DetailView):
+    model = models.PatientRecord
+    template_name = 'patient_detail.html'
+    context_object_name = 'patient'
+    pk_url_kwarg = 'patient_uuid'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_type'] = self.request.user.user_type
+        return context
+
+    def get_object(self, queryset=None):
+        patient_uuid = self.kwargs.get('patient_uuid')
+        return self.model.objects.get(uuid=patient_uuid)
+
+
+class PatientTreatmentUpdateView(mixins.LoginRequiredMixin, PatientRecordUpdateView):
+    form_class = forms.PatientTreatmentUpdateForm
+    success_url = reverse_lazy('dashboard')
+
+    def get_success_url(self):
+        return reverse_lazy('patient_detail', kwargs={'patient_uuid': self.object.uuid})

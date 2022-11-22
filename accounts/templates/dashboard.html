@@ -2,86 +2,158 @@
 {% block content %}
     <div class="p-3">
         <div class="col-md-12">
-            <h3>Hi {{ user.username }}!</h3>
+            <h3 class="text-center text-secondary">{{ title }}</h3>
         </div>
         <div class="row py-3">
-            <div class="col-4 mb-1" style="">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Patients Pending Lab Tests</h5>
-                        <div class="row">
-                            {% for patient in patients_pending_lab_tests %}
-                                <div class="col-12">
-                                    <a href="{% url 'patient_test_result_update' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
-                                        <div class="card-text text-center fs-6">
-                                            {{patient.first_name}}
-                                            {{patient.last_name}}
-                                        </div>
-                                    </a>
+            {% if user.is_staff %}
+                <div class="col-4 mb-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center text-secondary fw-bolder">Patients Data</h5>
+                            {% if patients|length %}
+                                <div class="row">
+                                    <div class="col-6 border">
+                                        <p class="text-center text-secondary fw-bold">Total Patients</p>
+                                        <h6 class="text-center">{{ patients|length }}</h6>
+                                    </div>
+                                    <div class="col-6 border">
+                                        <p class="text-center text-secondary fw-bold">Patients Pending Lab Tests</p>
+                                        <h6 class="text-center">{{ patients_pending_lab_tests|length }}</h6>
+                                    </div>
+                                    <div class="col-6 border">
+                                        <p class="text-center text-secondary fw-bold">Patients Pending Treatment</p>
+                                        <h6 class="text-center">{{ patients_pending_treatment|length }}</h6>
+                                    </div>
+                                    <div class="col-6 border">
+                                        <p class="text-center text-secondary fw-bold">Discharged Patients</p>
+                                        <h6 class="text-center">{{ discharged_patients|length }}</h6>
+                                    </div>
                                 </div>
-                            {% endfor %}
+                            {% else %}
+                                <p class="card-text text-secondary text-center">0 Patients!</p>
+                            {% endif %}
                         </div>
-                        <a href="{% url 'pending_lab_test_list' %}" class="btn btn-primary form-control">Show All</a>
                     </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">Patients Pending Treatment</h5>
-                        <div class="row">
-                            {% for patient in patients_pending_treatment %}
-                                <div class="col-12">
-                                    <a href="{% url 'patient_test_result_update' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
-                                        <div class="card-text text-center fs-6">
-                                            {{patient.first_name}}
-                                            {{patient.last_name}}
+                </div> 
+            {% endif %} 
+            {%  if user.is_staff or user.is_lab_technician %}
+                <div class="col-4 mb-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center text-secondary fs-bold">Patients Pending Lab Tests</h5>
+                            <div class="row">
+                                {% if patients_pending_lab_tests|length %}
+                                    {% for patient in patients_pending_lab_tests %}
+                                        <div class="col-12">
+                                            <a href="{% url 'patient_test_result_update' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
+                                                <div class="card-text text-center fs-6 text-secondary">
+                                                    {{patient.first_name}}
+                                                    {{patient.last_name}}
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
-                                </div>
-                            {% endfor %}
+                                    {% endfor %}
+                                    <a href="{% url 'pending_lab_test_list' %}" class="btn btn-primary form-control">Show All</a>
+                                {% else %}
+                                    <div class="col-12">
+                                        <div class="card-text text-center fs-6 text-secondary">
+                                            No patients pending lab tests!
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
-                        <a href="{% url 'pending_treatment_list' %}" class="btn btn-primary form-control">Show All</a>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Patients</h5>
-                        <p class="card-text">View all patients</p>
-                        <a href="{% url 'patient_list' %}" class="btn btn-primary">View</a>
+            {% endif %}
+            {%  if user.is_staff or  user.is_doctor %}
+                <div class="col-4 mb-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center text-secondary fs-bold">Patients Consultation</h5>
+                            <div class="row">
+                                {% if patients_pending_consultation|length %}
+                                    {% for patient in patients_pending_consultation %}
+                                        <div class="col-12">
+                                            <a href="{% url 'patient_consultation_update' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
+                                                <div class="card-text text-center fs-6 text-secondary">
+                                                    {{patient.first_name}}
+                                                    {{patient.last_name}}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                    <a href="{% url 'pending_consultation_list' %}" class="btn btn-primary form-control">Show All</a>
+                                {% else %}
+                                    <div class="col-12">
+                                        <div class="card-text text-center fs-6 text-secondary">
+                                            No patients pending consultation!
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Patients</h5>
-                        <p class="card-text">View all patients</p>
-                        <a href="{% url 'patient_list' %}" class="btn btn-primary">View</a>
+                <div class="col-4 mb-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center text-secondary fs-bold">Patients Pending Treatment</h5>
+                            <div class="row">
+                                {% if patients_pending_treatment|length %}
+                                    {% for patient in patients_pending_treatment %}
+                                        <div class="col-12">
+                                            <a href="{% url 'patient_detail' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
+                                                <div class="card-text text-center fs-6 text-secondary">
+                                                    {{patient.first_name}}
+                                                    {{patient.last_name}}
+                                                </div>
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                    <a href="{% url 'pending_treatment_list' %}" class="btn btn-primary form-control">Show All</a>
+                                {% else %}
+                                    <div class="col-12">
+                                        <div class="card-text text-center fs-6 text-secondary">
+                                            No patients pending treatment!
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Patients</h5>
-                        <p class="card-text">View all patients</p>
-                        <a href="{% url 'patient_list' %}" class="btn btn-primary">View</a>
+            {% endif %}   
+            {%  if user.is_staff or  user.is_cashier %}
+                <div class="col-4 mb-1">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center text-secondary fw-bold">Records</h5>
+                            <div class="row">
+                                {% if patients|length %}
+                                    {% for patient in patients %}
+                                        {% if forloop.counter < 6 %}
+                                            <div class="col-12">
+                                                <div class="card-text text-center fs-6 text-secondary">
+                                                    {{patient.first_name}}
+                                                    {{patient.last_name}}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <a href="{% url 'patient_register' %}" class="btn btn-primary form-control">Show All</a>
+                                {% else %}
+                                    <div class="col-12">
+                                        <div class="card-text text-center fs-6 text-secondary">
+                                            No records!
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Patients</h5>
-                        <p class="card-text">View all patients</p>
-                        <a href="{% url 'patient_list' %}" class="btn btn-primary">View</a>
-                    </div>
-                </div>
-            </div>
-            
+            {% endif %} 
         </div>
     </div>
         

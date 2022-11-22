@@ -11,26 +11,30 @@
           Dashboard
         </a>
       </li>
-      <li>
-        <a href="{% url 'patient_list' %}" class="nav-link text-white">
-          <i class="fa-solid fa-users text-light mx-1"></i>
-            Patients
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'patient_register' %}" class="nav-link text-white">
-          <i class="fa-solid fa-users text-light mx-1"></i>
-          Records
-        </a>
-      </li>
-        {% if user.is_staff %}
+      {% if not user.is_cashier or not user.is_pharmacist %}
           <li>
-            <a href="{% url 'admin:index' %}" class="nav-link text-white">
-              <i class="fa-solid fa-lock text-light mx-1"></i>
-              Admin
+            <a href="{% url 'patient_list' %}" class="nav-link text-white">
+              <i class="fa-solid fa-users text-light mx-1"></i>
+                Patients
             </a>
           </li>
-        {% endif %}
+      {% endif %}
+      {%  if  user.is_staff or user.is_cashier %}
+          <li>
+            <a href="{% url 'patient_register' %}" class="nav-link text-white">
+              <i class="fa-solid fa-users text-light mx-1"></i>
+              Records
+            </a>
+          </li>
+      {% endif %}
+      {% if user.is_staff %}
+        <li>
+          <a href="{% url 'admin:index' %}" class="nav-link text-white">
+            <i class="fa-solid fa-lock text-light mx-1"></i>
+            Admin
+          </a>
+        </li>
+      {% endif %}
     </ul>
     <hr>
     {% if user.is_authenticated %}

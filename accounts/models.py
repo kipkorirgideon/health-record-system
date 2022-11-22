@@ -64,11 +64,10 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
 
     objects = MainUserManager()
 
-    def clean(self):
-        print('user_type', self.user_type)
-        super().clean()
-        if not self.user_type:
-            raise django.core.exceptions.ValidationError('User Type is required')
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+
 
     @property
     def full_name(self):
@@ -81,6 +80,18 @@ class User(django.contrib.auth.base_user.AbstractBaseUser, model_utils.models.Ti
     def __str__(self):
         return self.full_name
 
-    class Meta:
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
+    @property
+    def is_doctor(self):
+        return self.user_type == self.USER_TYPE_DOCTOR
+
+    @property
+    def is_cashier(self):
+        return self.user_type == self.USER_TYPE_CASHIER
+
+    @property
+    def is_lab_technician(self):
+        return self.user_type == self.USER_TYPE_LAB_TECHNICIAN
+
+    @property
+    def is_pharmacist(self):
+        return self.user_type == self.USER_TYPE_PHARMACIST

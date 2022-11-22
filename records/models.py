@@ -84,18 +84,12 @@ class Patient(model_utils.models.TimeStampedModel):
             return '45 and above'
 
 
-class PatientRecord(model_utils.models.TimeStampedModel):
-    uuid = NativeShortUUIDField(editable=False, unique=True, default=uuid.uuid4)
-    patient = models.OneToOneField(Patient, on_delete=models.CASCADE, related_name='record')
+class PatientRecord(Patient):
     signs_and_symptoms = models.TextField('Signs and Symptoms', blank=True, default='')
     test = models.TextField('Diagnosis', blank=True, default='')
     test_result = models.TextField('Test Result', blank=True, default='')
     treatment = models.TextField('Treatment', blank=False, default='')
 
-    def __str__(self):
-        return f'{self.patient}'
-
     class Meta:
         verbose_name = 'Patient Record'
         verbose_name_plural = 'Patient Records'
-        ordering = ['patient', 'created']
