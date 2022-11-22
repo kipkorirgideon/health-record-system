@@ -6,6 +6,11 @@
         <div class="col-12">
             <h2 class="mt-3 text-center">Patient List</h2>
         </div>
+        {% if user.is_staff or user.is_cashier %}
+            <div class="col-12 d-flex justify-content-end">
+                <a href="{% url 'patient_create' %}" class="btn btn-primary mx-2">Add Patient</a>
+            </div>
+        {% endif %}
         <div class="col-12">
             {% render_table table %}
         </div>

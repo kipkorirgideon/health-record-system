@@ -36,6 +36,36 @@
                     </div>
                 </div> 
             {% endif %} 
+            {%  if user.is_staff or  user.is_cashier %}
+            <div class="col-4 mb-1">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-secondary fw-bold">Records</h5>
+                        <div class="row">
+                            {% if patients|length %}
+                                {% for patient in patients %}
+                                    {% if forloop.counter < 6 %}
+                                        <div class="col-12">
+                                            <div class="card-text text-center fs-6 text-secondary">
+                                                {{patient.first_name}}
+                                                {{patient.last_name}}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                                <a href="{% url 'patient_register' %}" class="btn btn-primary form-control">Show All</a>
+                            {% else %}
+                                <div class="col-12">
+                                    <div class="card-text text-center fs-6 text-secondary">
+                                        No records!
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %} 
             {%  if user.is_staff or user.is_lab_technician %}
                 <div class="col-4 mb-1">
                     <div class="card">
@@ -124,36 +154,6 @@
                     </div>
                 </div>
             {% endif %}   
-            {%  if user.is_staff or  user.is_cashier %}
-                <div class="col-4 mb-1">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-center text-secondary fw-bold">Records</h5>
-                            <div class="row">
-                                {% if patients|length %}
-                                    {% for patient in patients %}
-                                        {% if forloop.counter < 6 %}
-                                            <div class="col-12">
-                                                <div class="card-text text-center fs-6 text-secondary">
-                                                    {{patient.first_name}}
-                                                    {{patient.last_name}}
-                                                </div>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <a href="{% url 'patient_register' %}" class="btn btn-primary form-control">Show All</a>
-                                {% else %}
-                                    <div class="col-12">
-                                        <div class="card-text text-center fs-6 text-secondary">
-                                            No records!
-                                        </div>
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %} 
         </div>
     </div>
         

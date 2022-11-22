@@ -10,10 +10,11 @@ import mixins
 
 
 # Create your views here.
-class PatientRecordView(SingleTableView):
-    model = models.Patient
+class PatientRecordTableListView(SingleTableView):
+    model = models.PatientRecord
     table_class = tables.PatientTable
-    template_name = 'cashier_patient_create.html'
+    template_name = 'patient_list.html'
+    context_object_name = 'patients'
 
     table_pagination = {
         'per_page': 10
@@ -21,7 +22,7 @@ class PatientRecordView(SingleTableView):
     paginator_class = LazyPaginator
 
 
-class PatientRegisterView(mixins.LoginRequiredMixin, PatientRecordView):
+class PatientRegisterView(mixins.LoginRequiredMixin, PatientRecordTableListView):
     pass
 
 
@@ -63,30 +64,27 @@ class PatientListView(mixins.LoginRequiredMixin, generic.TemplateView):
         return context
 
 
-class PendingConsultationListView(mixins.LoginRequiredMixin, PatientRecordView):
-    template_name = 'patient_list.html'
-    context_object_name = 'patients'
+class PendingConsultationListView(mixins.LoginRequiredMixin, PatientRecordTableListView):
+    table_class = tables.PatientRecordPendingConsultationTable
 
     def get_queryset(self):
         return self.model.objects.filter(
-            Q(record__signs_and_symptoms__exact='') &
-            Q(record__test__exact=''))
+            Q(signs_and_symptoms__exact='') &
+            Q(test__exact=''))
 
 
-class PendingLabTestListView(mixins.LoginRequiredMixin, PatientRecordView):
-    template_name = 'patient_list.html'
-    context_object_name = 'patients'
-
-    def get_queryset(self):
-        return self.model.objects.filter(record__test_result__exact='')
-
-
-class PendingTreatmentListView(mixins.LoginRequiredMixin, PatientRecordView):
-    template_name = 'patient_list.html'
-    context_object_name = 'patients'
+class PendingLabTestListView(mixins.LoginRequiredMixin, PatientRecordTableListView):
+    table_class = tables.PatientRecordPendingLabTestTable
 
     def get_queryset(self):
-        return self.model.objects.filter(record__treatment__exact='')
+        return self.model.objects.filter(test_result__exact='')
+
+
+class PendingTreatmentListView(mixins.LoginRequiredMixin, PatientRecordTableListView):
+    table_class = tables.PatientRecordPendingTreatmentTable
+
+    def get_queryset(self):
+        return self.model.objects.filter(treatment__exact='')
 
 
 class PatientDetailView(mixins.LoginRequiredMixin, generic.DetailView):
