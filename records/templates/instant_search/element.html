@@ -5,27 +5,18 @@
 </style>
 {% verbatim %}
 <script type="text/html" id="patients" class="">
-    <div class="row">
-        <div class="col-3 mx-2">
-            <div class="fs-6">{{patient_id_number}}</div>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="fs-6 mx-3 fw-bold text-secondary">{{patient_id_number}}</div>
+        <div class="fs-6 mx-3">{{first_name}}</div>
+        <div class="fs-6 mx-3">{{last_name}}</div>
+        <div class="fs-6 mx-3">
+            {{#is_doctor}}
+                <a href="/records/doctor-consultation/{{uuid}}" class="btn btn-primary btn-sm mx-2">Add Consultation</a>
+            {{/is_doctor}}
+            {{#is_lab_technician}}
+                <a href="/records/lab-test/{{uuid}}" class="btn btn-secondary mx-2">Add Lab Test</a>
+            {{/is_lab_technician}}
         </div>
-        <div class="col-3 mx-2">
-            <div class="fs-6">{{first_name}}</div>
-        </div>
-        <div class="col-3 mx-2">
-            <div class="fs-6">{{last_name}}</div>
-        </div>
-        <div class="col-3 mx-2">
-            <div class="fs-6">
-                {{#is_doctor}}
-                    <a href="/records/doctor-consultation/{{uuid}}" class="btn btn-primary mx-2">Update</a>
-                {{/is_doctor}}
-                {{#is_lab_technician}}
-                    <a href="/records/lab-test/{{uuid}}" class="btn btn-secondary mx-2">Update</a>
-                {{/is_lab_technician}}
-            </div>
-        </div>
-
     </div>
  </script>
 {% endverbatim %}
