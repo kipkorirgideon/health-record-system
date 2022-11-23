@@ -3,3 +3,20 @@
     content: "*";
     margin-left: 2px;
 }
+.menu-bar{
+    width: 260px;
+}
+
+.main-screen {
+    width: calc(100% - 260px);
+}
+
+#hits ol > li{
+    margin-top: 0.5rem;
+}
+.patient-id-col{
+    width: 100px;
+}
+.content-col{
+    width: calc(100% - 50px);
+}

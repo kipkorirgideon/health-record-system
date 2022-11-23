@@ -1,21 +1,23 @@
-<style>
-    #hits ol > li{
-        margin-top: 0.5rem;
-    }
-</style>
+
 {% verbatim %}
 <script type="text/html" id="patients" class="">
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="fs-6 mx-3 fw-bold text-secondary">{{patient_id_number}}</div>
-        <div class="fs-6 mx-3">{{first_name}}</div>
-        <div class="fs-6 mx-3">{{last_name}}</div>
-        <div class="fs-6 mx-3">
-            {{#is_doctor}}
-                <a href="/records/doctor-consultation/{{uuid}}" class="btn btn-primary btn-sm mx-2">Add Consultation</a>
-            {{/is_doctor}}
-            {{#is_lab_technician}}
-                <a href="/records/patients/{{uuid}}" class="btn btn-secondary mx-2">Show Details</a>
-            {{/is_lab_technician}}
+    <div class="container-fluid d-flex align-items-center">
+        <div class="patient-id-col">
+            <div class="fs-6 mx-3 fw-bold text-secondary">{{patient_id_number}}</div>
+        </div>
+        <div class="content-col">
+            <div class="d-flex  align-items-center">
+                <div class="fs-6 mx-3">{{first_name}}</div>
+                <div class="fs-6 mx-3">{{last_name}}</div>
+                <div class="fs-6 mx-3">
+                    {{#is_doctor}}
+                        <a href="/records/patients/{{uuid}}" class="btn btn-secondary btn-sm mx-2">Show Details</a>
+                    {{/is_doctor}}
+                    {{#is_lab_technician}}
+                        <a href="/records/patients/{{uuid}}" class="btn btn-secondary btn-sm mx-2">Show Details</a>
+                    {{/is_lab_technician}}
+                </div>
+            </div>
         </div>
     </div>
  </script>

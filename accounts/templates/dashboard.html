@@ -45,7 +45,7 @@
                             {% if patients|length %}
                                 {% for patient in patients %}
                                     {% if forloop.counter < 6 %}
-                                        <div class="col-12">
+                                        <div class="col-12 mb-3">
                                             <div class="card-text text-center fs-6 text-secondary">
                                                 {{patient.first_name}}
                                                 {{patient.last_name}}
@@ -74,14 +74,16 @@
                             <div class="row">
                                 {% if patients_pending_lab_tests|length %}
                                     {% for patient in patients_pending_lab_tests %}
-                                        <div class="col-12">
-                                            <a href="{% url 'patient_detail' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
-                                                <div class="card-text text-center fs-6 text-secondary">
-                                                    {{patient.first_name}}
-                                                    {{patient.last_name}}
-                                                </div>
-                                            </a>
-                                        </div>
+                                        {% if forloop.counter < 6 %}
+                                            <div class="col-12">
+                                                <a href="{% url 'patient_detail' patient_uuid=patient.uuid %}" class="nav-link text-primary text-decoration-none">
+                                                    <div class="card-text text-center fs-6 text-secondary">
+                                                        {{patient.first_name}}
+                                                        {{patient.last_name}}
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                     <a href="{% url 'pending_lab_test_list' %}" class="btn btn-primary form-control">Show All</a>
                                 {% else %}

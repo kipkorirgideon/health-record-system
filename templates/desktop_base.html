@@ -12,12 +12,17 @@
     {% block styles %}{% endblock %}
 </head>
 <body>
-    <div class="row">
-        <div class="col-2">
+    <div class="d-flex">
+        <div class="menu-bar">
         {% include 'side_menu.html'   %}
         </div>
-        <div class="col-10">
-            {% block content %} {% endblock %}
+        <div class="main-screen">
+                <div class="row">
+                    <div class="col-11 mx-auto">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
