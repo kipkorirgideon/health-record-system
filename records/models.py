@@ -58,7 +58,13 @@ class Patient(model_utils.models.TimeStampedModel):
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
-    # number of years since birth
+
+    @property
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+
+    # number of years
+    @property
     def age(self):
         import datetime
         today = datetime.date.today()
