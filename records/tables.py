@@ -74,5 +74,4 @@ class PatientRecordPendingTreatmentTable(tables.Table):
         attr = {
             "class": "table table-striped",
         }
-
         template_name = "django_tables2/bootstrap4.html"

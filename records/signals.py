@@ -8,4 +8,3 @@ from records import models
 def create_patient_record(sender, instance, created, **kwargs):
     if created:
         models.PatientRecord(patient_ptr=instance).save_base(raw=True)
-
